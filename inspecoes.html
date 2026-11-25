@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Residência Andrade · Móveis Medeiros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="inspecoes.css">
+</head>
+
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-text">
+        <strong>MÓVEIS<br>MEDEIROS</strong>
+        <span>GESTÃO DE QUALIDADE</span>
+      </div>
+    </div>
+
+    <p class="nav-title">GESTÃO</p>
+    <nav class="nav">
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>
+        <span>Obras</span>
+      </a>
+      <a href="#" class="nav-item active">
+        <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/></svg>
+        <span>Inspeções</span>
+        <b class="badge" id="badgeInsp">3</b>
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg>
+        <span>Não conformidades</span>
+        <b class="badge badge-brown" id="badgeNc">5</b>
+      </a>
+    </nav>
+
+    <div class="user">
+      <div class="avatar" id="userAvatar">RM</div>
+      <div class="user-info"><strong id="userName">Rafael Medeiros</strong><span>Líder / Inspetor</span></div>
+      <svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </div>
+  </aside>
+
+  <!-- MAAAAIINNNNNNNNNNNNNN -->
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="obraTitulo">Residência Andrade</h1>
+        <p id="obraPedido">Pedido #MM-0248</p>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" aria-label="Alertas">
+          <svg viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg>
+          <i class="dot"></i>
+        </button>
+        <div class="avatar" id="topAvatar">RM</div>
+      </div>
+    </header>
+
+    <!-- //------------------------- -->
+    <div class="content">
+      <a href="#" class="back"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg> Todas as obras</a>
+
+      <section class="hero">
+        <div>
+          <span class="status" id="obraStatus">EM EXECUÇÃO</span>
+          <h2 id="heroTitulo">Residência Andrade</h2>
+          <p id="heroEndereco">Carolina Andrade · Jardim Europa, São Paulo</p>
+        </div>
+        <dl class="meta">
+          <div><dt>ETAPA ATUAL</dt><dd id="metaEtapa">Montagem</dd></div>
+          <div><dt>PRAZO</dt><dd id="metaPrazo">Hoje, 18:00</dd></div>
+          <div><dt>INSPETOR</dt><dd id="metaInspetor">Rafael Medeiros</dd></div>
+        </dl>
+      </section>
+
+      <div class="grid">
+        <section class="card checklist">
+          <span class="eyebrow">INSPEÇÃO DE MONTAGEM</span>
+          <div class="check-head">
+            <h3>Checklist de qualidade</h3>
+            <span class="counter" id="contador">0 de 0</span>
+          </div>
+          <p class="sub">Inspecione cada item e registre o resultado.</p>
+
+          <div class="legend">
+            <span><i class="lg ok"></i>Conforme</span>
+            <span><i class="lg nok"></i>Abre uma NC obrigatória</span>
+            <span><i class="lg na"></i>Não aplicável</span>
+          </div>
+
+          <ul class="items" id="itens"></ul>
+
+          <footer class="check-foot">
+            <small id="saveState">Carregando…</small>
+            <button class="btn-primary" id="btnFinalizar">Finalizar inspeção</button>
+          </footer>
+        </section>
+
+        <aside class="card side">
+          <h4>Andamento da obra</h4>
+          <div class="progress-box">
+            <strong id="progPct">0%</strong>
+            <span>Progresso geral</span>
+            <div class="bar"><div id="progBar"></div></div>
+          </div>
+          <p class="side-title">ATIVIDADE RECENTE</p>
+          <ul class="activity" id="atividades"></ul>
+          <button class="btn-nc" id="btnNc">Abrir Não conformidade</button>
+        </aside>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal de Não conformidade -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <h3 id="modalTitulo">Abrir não conformidade</h3>
+    <p class="sub" id="modalItem"></p>
+    <label for="ncDesc">O que foi encontrado?</label>
+    <textarea id="ncDesc" rows="4" placeholder="Descreva o problema e onde ele está."></textarea>
+    <label for="ncSev">Gravidade</label>
+    <select id="ncSev">
+      <option value="baixa">Baixa</option>
+      <option value="media" selected>Média</option>
+      <option value="alta">Alta</option>
+    </select>
+    <p class="err" id="ncErr" hidden></p>
+    <div class="modal-actions">
+      <button class="btn-ghost" id="ncCancel">Cancelar</button>
+      <button class="btn-primary" id="ncSave">Registrar NC</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+<script src="inspecoes.js"></script>
+</body>
+</html>
