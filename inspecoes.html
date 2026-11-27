@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="inspecoes.css">
 </head>
-
 <body>
 <div class="app">
 
@@ -47,7 +45,6 @@
     </div>
   </aside>
 
-  <!-- MAAAAIINNNNNNNNNNNNNN -->
   <main class="main">
     <header class="topbar">
       <div>
@@ -63,7 +60,6 @@
       </div>
     </header>
 
-    <!-- //------------------------- -->
     <div class="content">
       <a href="#" class="back"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg> Todas as obras</a>
 
@@ -124,18 +120,27 @@
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
     <h3 id="modalTitulo">Abrir não conformidade</h3>
     <p class="sub" id="modalItem"></p>
-    <label for="ncDesc">O que foi encontrado?</label>
-    <textarea id="ncDesc" rows="4" placeholder="Descreva o problema e onde ele está."></textarea>
-    <label for="ncSev">Gravidade</label>
-    <select id="ncSev">
-      <option value="baixa">Baixa</option>
-      <option value="media" selected>Média</option>
-      <option value="alta">Alta</option>
-    </select>
+    <div class="form-grid">
+      <div class="full"><label for="ncTitulo">Título (ponto com problema)</label>
+        <input id="ncTitulo" type="text" maxlength="150" placeholder="Ex.: Porta do armário superior da cozinha"></div>
+      <div class="full"><label for="ncDesc">Descrição técnica</label>
+        <textarea id="ncDesc" rows="3" maxlength="2000" placeholder="Descreva o problema e onde ele está."></textarea></div>
+      <div><label for="ncCausa">Causa-raiz</label>
+        <select id="ncCausa"></select></div>
+      <div><label for="ncPrazo">Prazo</label>
+        <input id="ncPrazo" type="datetime-local"></div>
+      <div class="full"><label for="ncAcao">Ação corretiva necessária</label>
+        <textarea id="ncAcao" rows="2" maxlength="2000" placeholder="O que precisa ser feito para corrigir?"></textarea></div>
+      <div class="full"><label for="ncResp">Funcionário responsável pela correção</label>
+        <select id="ncResp"></select></div>
+      <div class="full"><label for="ncFoto">Foto da não conformidade</label>
+        <input id="ncFoto" type="file" accept="image/*" capture="environment">
+        <img id="ncFotoPrev" class="foto-prev" alt="Pré-visualização da foto" hidden></div>
+    </div>
     <p class="err" id="ncErr" hidden></p>
     <div class="modal-actions">
-      <button class="btn-ghost" id="ncCancel">Cancelar</button>
-      <button class="btn-primary" id="ncSave">Registrar NC</button>
+      <button class="btn-ghost" id="ncCancel" type="button">Cancelar</button>
+      <button class="btn-primary" id="ncSave" type="button">Registrar NC</button>
     </div>
   </div>
 </div>

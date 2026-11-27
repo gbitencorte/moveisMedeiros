@@ -40,7 +40,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .icon-btn{position:relative;width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:8px;display:grid;place-items:center}
 .icon-btn .dot{position:absolute;top:8px;right:9px;width:6px;height:6px;border-radius:50%;background:var(--nok)}
 
-.content{padding:34px 48px 48px;}
+.content{padding:34px 48px 48px;max-width:1280px}
 .back{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#6d675f;text-decoration:none;margin-bottom:26px}
 .back svg{width:14px}
 
@@ -108,16 +108,17 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 /* Modal / toast */
 .modal{position:fixed;inset:0;background:rgba(31,29,27,.55);display:grid;place-items:center;padding:20px;z-index:20}
 .modal[hidden],.toast[hidden]{display:none}
-.modal-box{background:#fff;border-radius:12px;padding:26px;width:min(440px,100%)}
+.modal-box{background:#fff;border-radius:12px;padding:26px;width:min(600px,100%);max-height:92vh;overflow-y:auto}
 .modal-box h3{font-size:18px;font-weight:500;margin-bottom:6px}
 .modal-box label{display:block;font-size:11px;font-weight:600;margin:18px 0 6px}
-.modal-box textarea,.modal-box select{width:100%;font:inherit;font-size:13px;padding:10px 12px;border:1px solid #ddd8d1;border-radius:8px;background:#fff}
+.modal-box textarea,.modal-box select,.modal-box input[type=text],.modal-box input[type=date],.modal-box input[type=file], #ncPrazo{width:100%;font:inherit;font-size:13px;padding:10px 12px;border:1px solid #ddd8d1;border-radius:8px;background:#fff}
 .err{color:var(--nok);font-size:11px;margin-top:10px}
 .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
 .btn-ghost{padding:14px 18px;border-radius:8px;font-weight:600;color:#6d675f}
 .btn-ghost:hover{background:#f3f1ee}
 .modal-actions .btn-primary{padding:14px 18px}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:8px;font-size:12px;z-index:30}
+
 
 @media (max-width:1000px){
   .app{grid-template-columns:1fr}
@@ -129,3 +130,14 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .legend{flex-wrap:wrap}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.form-grid .full{grid-column:1/-1}
+.modal-box textarea{resize:vertical}
+.foto-prev{display:block;max-width:100%;max-height:160px;margin-top:10px;border-radius:8px;border:1px solid var(--line)}
+@media (max-width:560px){.form-grid{grid-template-columns:1fr}}
+
+.login-box{width:min(380px,100%)}
+.login-box input{width:100%;font:inherit;font-size:13px;padding:10px 12px;border:1px solid #ddd8d1;border-radius:8px}
+.seg button:disabled{cursor:not-allowed;opacity:.55}
+.btn-primary[hidden]{display:none}
