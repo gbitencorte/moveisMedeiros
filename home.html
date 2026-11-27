@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Obras · Móveis Medeiros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">M</span>
+        <span class="brand-text">
+          <strong>MÓVEIS<br>MEDEIROS</strong>
+          <small>GESTÃO DE QUALIDADE</small>
+        </span>
+      </div>
+
+      <nav class="nav" aria-label="Principal">
+        <p class="nav-title">GESTÃO</p>
+        <a class="nav-item is-active" href="home.html" aria-current="page">
+          <span data-icon="home"></span> Obras
+        </a>
+        <a class="nav-item" href="inspecoes.html">
+          <span data-icon="clipboard"></span> Inspeções
+          <span class="count" id="countInspecoes" hidden>0</span>
+        </a>
+        <a class="nav-item" href="nao-conformidades.html">
+          <span data-icon="alert"></span> Não conformidades
+          <span class="count count-nc" id="countNcs" hidden>0</span>
+        </a>
+        <a class="nav-item" href="usuarios.html" id="navUsuarios" hidden>
+          <span data-icon="users"></span> Usuários
+        </a>
+      </nav>
+
+      <button class="user" type="button" id="btnUser" aria-label="Abrir perfil" hidden>
+        <span class="avatar" id="userAvatar"><span data-icon="user"></span></span>
+        <span class="user-info">
+          <strong id="userName"></strong>
+          <small id="userRole"></small>
+        </span>
+        <span data-icon="chevron"></span>
+      </button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>Obras</h1>
+          <p>Acompanhe pedidos, etapas e inspeções em andamento.</p>
+        </div>
+        <div class="topbar-actions">
+          <a class="icon-btn" href="nao-conformidades.html" aria-label="Alertas de não conformidade">
+            <span data-icon="alert"></span>
+            <i class="dot" id="alertDot" hidden></i>
+          </a>
+          <span class="avatar avatar-sm" id="topAvatar" hidden></span>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="search-row">
+          <label class="search">
+            <span data-icon="search"></span>
+            <input id="busca" type="search" placeholder="Buscar por obra, cliente ou pedido..." autocomplete="off">
+          </label>
+          <button class="btn-primary" id="btnCriar" type="button" hidden>
+            <span data-icon="plus"></span> Criar pedido
+          </button>
+        </div>
+
+        <section aria-labelledby="tituloRecentes">
+          <h2 id="tituloRecentes">Obras recentes</h2>
+          <p class="subtitle">Priorize as atividades que precisam da sua atenção.</p>
+
+          <div class="tabs" id="tabs" role="tablist">
+            <button class="tab is-active" role="tab" data-filtro="todas">Todas <span class="tab-count" id="countTodas"></span></button>
+            <button class="tab" role="tab" data-filtro="montagem">Montagem</button>
+            <button class="tab" role="tab" data-filtro="instalacao">Instalação</button>
+            <button class="tab" role="tab" data-filtro="acabamento">Acabamento</button>
+            <button class="tab" role="tab" data-filtro="concluidas">Concluídas</button>
+          </div>
+
+          <div class="grid" id="lista" aria-live="polite"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="config.js?v=20261128"></script>
+  <script src="home.js"></script>
+</body>
+</html>

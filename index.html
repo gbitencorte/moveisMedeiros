@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acesso ao sistema · Móveis Medeiros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261128">
+</head>
+<body>
+
+  <main class="page">
+    <section class="card">
+      <p class="eyebrow">Acesso ao sistema</p>
+      <h1 class="title">Bem-vindo de volta</h1>
+      <p class="subtitle">Entre com suas credenciais para continuar.</p>
+
+      <form class="form" id="form" action="#" method="post" novalidate>
+
+        <div class="field">
+          <label class="field__label" for="email">E-mail</label>
+          <div class="input">
+            <svg class="input__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>
+            </svg>
+            <input id="email" name="email" type="email" placeholder="nome@moveismedeiros.com.br" autocomplete="username" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="senha">Senha</label>
+          <div class="input">
+            <svg class="input__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5" y="11" width="14" height="9" rx="2"/>
+              <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+            </svg>
+            <input id="senha" name="senha" type="password" placeholder="••••••••" autocomplete="current-password" required>
+            <button class="input__toggle" type="button" id="toggle-senha" aria-label="Mostrar senha">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="options">
+          <label class="check">
+            <input type="checkbox" name="lembrar" id="lembrar" checked>
+            <span class="check__box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+            </span>
+            <span class="check__label">Lembrar acesso</span>
+          </label>
+          <a class="link" href="#" id="esqueci">Esqueci minha senha</a>
+        </div>
+
+        <p class="form__msg" id="msg" role="alert"></p>
+
+        <button class="btn" type="submit" id="enviar">
+          <span>Entrar</span>
+        </button>
+
+        <p class="note">Seu acesso será liberado por um líder responsável.</p>
+      </form>
+
+    </section>
+
+    <footer class="footer">© 2025 Móveis Medeiros · Ambiente seguro</footer>
+  </main>
+
+  <script src="config.js?v=20261127"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const mensagem = (texto, tipo = "error") => { const el = $("msg"); el.textContent = texto; el.className = `form__msg is-${tipo}`; };
+
+    // já logado → vai direto para as obras
+if (localStorage.getItem(CONFIG.TOKEN_KEY) || sessionStorage.getItem(CONFIG.TOKEN_KEY)) location.replace("home.html");
+    // mostrar / ocultar senha
+    const campo = $("senha"), botao = $("toggle-senha");
+    botao.addEventListener("click", () => {
+      const visivel = campo.type === "text";
+      campo.type = visivel ? "password" : "text";
+      botao.setAttribute("aria-label", visivel ? "Mostrar senha" : "Ocultar senha");
+    });
+
+    // MVP: sem redefinição de senha (CONTRATO_API, seção 1.3)
+    $("esqueci").addEventListener("click", (e) => { e.preventDefault(); mensagem("Fale com o Líder para redefinir a sua senha.", "info"); });
+
+    $("form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = $("email").value.trim(), senha = campo.value;
+      if (!email || !senha) return mensagem("Informe e-mail e senha.");
+      $("enviar").disabled = true; mensagem("", "info");
+      try {
+        const res = await fetch(`${CONFIG.API_URL}/api/auth/login`, {
+          method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, senha }),
+        });
+        const dados = await res.json().catch(() => ({}));
+        if (res.ok) {
+          // "Lembrar acesso": mantém o token ao fechar o navegador; senão vale só nesta aba
+          (($("lembrar").checked ? localStorage : sessionStorage)).setItem(CONFIG.TOKEN_KEY, dados.accessToken);
+          location.href = "index.html";
+location.href = "home.html";        }
+        // o front decide pelo code, nunca pelo texto de detail
+        mensagem(dados.code === "CREDENCIAIS_INVALIDAS" ? "E-mail ou senha incorretos."
+          : dados.code === "VALIDACAO_FALHOU" ? "Confira o e-mail e a senha informados."
+          : "Não foi possível entrar. Tente de novo.");
+      } catch {
+        mensagem("Não foi possível conectar à API. Confira se ela está rodando e se esta página abre em http://localhost:5173.");
+      } finally {
+        $("enviar").disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
