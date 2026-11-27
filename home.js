@@ -173,7 +173,6 @@ function vazioHTML() {
       <span class="empty-icon"><span data-icon="box"></span></span>
       <h3>Nenhum pedido por aqui ainda</h3>
       <p>${texto}</p>
-      ${lider ? '<button class="btn-primary" type="button" id="emptyCriar"><span data-icon="plus"></span> Criar pedido</button>' : ""}
     </div>`;
 }
 
@@ -261,7 +260,6 @@ $("busca").addEventListener("input", (e) => {
 
 $("lista").addEventListener("click", (e) => {
   if (e.target.closest("#retry")) atualizar();
-  if (e.target.closest("#emptyCriar")) criarPedido();
 });
 $("btnCriar").addEventListener("click", criarPedido);
 $("btnUser").addEventListener("click", abrirPerfil);
